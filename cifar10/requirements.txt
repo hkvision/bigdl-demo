@@ -1,0 +1,6 @@
+bigdl-orca-spark3==2.0.0
+torch==1.11.0
+torchvision==0.12.0
+matplotlib==3.5.2
+jep==3.9.0
+cloudpickle==2.0.0
