@@ -17,5 +17,5 @@ ${SPARK_HOME}/bin/spark-submit \
     --conf spark.pyspark.python=environment/bin/python \
     --conf spark.driver.extraClassPath=${BIGDL_HOME}/jars/* \
     --conf spark.executor.extraClassPath=${BIGDL_HOME}/jars/* \
-    --conf "spark.executorEnv.ARROW_LIBHDFS_DIR=/opt/cloudera/parcels/CDH-5.15.2-1.cdh5.15.2.p0.3/lib64" \
+    --conf spark.executorEnv.ARROW_LIBHDFS_DIR=/opt/cloudera/parcels/CDH-5.15.2-1.cdh5.15.2.p0.3/lib64 \
     ncf_train.py --cluster_mode spark-submit --backend spark --model_dir hdfs://172.16.0.105:8020/yushan/
