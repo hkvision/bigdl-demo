@@ -113,7 +113,7 @@ if __name__ == '__main__':
     elif args.backend == "spark":
         save_path = args.model_dir + "ncf.h5"
     else:
-        raise Exception("backend should be either 'ray' or 'spark', but got " + args.backend)
+        raise Exception("backend should be either 'tf2' or 'spark', but got " + args.backend)
 
     import random
     from pyspark.sql.types import StructType, StructField, IntegerType
