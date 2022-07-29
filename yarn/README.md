@@ -24,6 +24,7 @@ Remarks:
 - Need to change `spark.pyspark.driver.python` to the Python interpreter on the client node for spark-submit yarn client mode. Can get this path using `which python` for the active conda environment.
 - Need to change or remove `spark.executorEnv.ARROW_LIBHDFS_DIR` according to your cluster settings.
 - Need to change `--model_dir` for the training script.
+- You can remove `ARROW_LIBHDFS_DIR` related environment variables in the script if you are not using CDH. See the issue below for more details.
 
 ## Issue Solutions
 - https://bigdl.readthedocs.io/en/latest/doc/Orca/Overview/known_issues.html#oserror-unable-to-load-libhdfs-libhdfs-so-cannot-open-shared-object-file-no-such-file-or-directory
