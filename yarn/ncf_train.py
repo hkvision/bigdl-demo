@@ -18,11 +18,8 @@ import math
 import argparse
 import pandas as pd
 
-#from bigdl.dllib.utils.log4Error import *
-from bigdl.dllib.feature.dataset import movielens
 from bigdl.orca import init_orca_context, stop_orca_context
 from bigdl.orca.learn.tf2.estimator import Estimator
-from bigdl.friesian.feature import FeatureTable
 
 
 def build_model(num_users, num_items, class_num, layers=[20, 10], include_mf=True, mf_embed=20):
@@ -109,17 +106,15 @@ if __name__ == '__main__':
     elif args.cluster_mode == "spark-submit":
         sc = init_orca_context("spark-submit", extra_params={"dashboard-port": "11281", "min-worker-port": "30000", "max-worker-port": "33333", "metrics-export-port": "10010"})
     else:
-        invalidInputError(False,
-                          "cluster_mode should be one of 'local', 'yarn', 'standalone' and"
-                          " 'spark-submit', but got " + args.cluster_mode)
+        raise Exception("cluster_mode should be one of 'local', 'yarn', 'standalone' and"
+                        " 'spark-submit', but got " + args.cluster_mode)
 
     if args.backend == "tf2":
         save_path = args.model_dir + "ncf.ckpt"
     elif args.backend == "spark":
         save_path = args.model_dir + "ncf.h5"
     else:
-        invalidInputError(False,
-                          "backend should be either 'ray' or 'spark', but got " + args.backend)
+        raise Exception("backend should be either 'ray' or 'spark', but got " + args.backend)
 
     movielens_data = movielens.get_id_ratings(args.data_dir)
     pddf = pd.DataFrame(movielens_data, columns=["user", "item", "label"])
