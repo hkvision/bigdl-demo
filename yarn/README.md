@@ -5,7 +5,7 @@
 ## Download BigDL 2.0
 - Download BigDL all-in-one package: https://repo1.maven.org/maven2/com/intel/analytics/bigdl/bigdl-assembly-spark_2.4.6/2.0.0/bigdl-assembly-spark_2.4.6-2.0.0.zip
 - `unzip bigdl-assembly-spark_2.4.6-2.0.0.zip -d bigdl-2.0`
-- For yarn cluster mode, additionally download the separate jars and put them into bigdl-2.0 directory:
+- For yarn cluster mode, additionally download the separate jars and *put them into bigdl-2.0 directory*:
   - https://repo1.maven.org/maven2/com/intel/analytics/bigdl/bigdl-dllib-spark_2.4.6/2.0.0/bigdl-dllib-spark_2.4.6-2.0.0-jar-with-dependencies.jar
   - https://repo1.maven.org/maven2/com/intel/analytics/bigdl/bigdl-orca-spark_2.4.6/2.0.0/bigdl-orca-spark_2.4.6-2.0.0-jar-with-dependencies.jar
 
