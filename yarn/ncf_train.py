@@ -116,13 +116,19 @@ if __name__ == '__main__':
     else:
         raise Exception("backend should be either 'ray' or 'spark', but got " + args.backend)
 
-    movielens_data = movielens.get_id_ratings(args.data_dir)
-    pddf = pd.DataFrame(movielens_data, columns=["user", "item", "label"])
-    num_users, num_items = pddf["user"].max() + 1, pddf["item"].max() + 1
+    import random
+    from pyspark.sql.types import StructType, StructField, IntegerType
+    from bigdl.orca import OrcaContext
+    spark = OrcaContext.get_spark_session()
 
-    full = FeatureTable.from_pandas(pddf)\
-        .apply("label", "label", lambda x: x - 1, 'int')
-    train, test = full.random_split([0.8, 0.2], seed=1)
+    num_users, num_items = 6000, 3000
+    rdd = sc.range(0, 50000).map(
+        lambda x: [random.randint(0, num_users-1), random.randint(0, num_items-1), random.randint(0, 4)])
+    schema = StructType([StructField("user", IntegerType(), False),
+                         StructField("item", IntegerType(), False),
+                         StructField("label", IntegerType(), False)])
+    data = spark.createDataFrame(rdd, schema)
+    train, test = data.randomSplit([0.8, 0.2], seed=1)
 
     config = {"lr": args.lr, "inter_op_parallelism": 4, "intra_op_parallelism": args.executor_cores}
 
@@ -137,24 +143,24 @@ if __name__ == '__main__':
                       metrics=['sparse_categorical_crossentropy', 'accuracy'])
         return model
 
-    steps_per_epoch = math.ceil(train.size() / args.batch_size)
-    val_steps = math.ceil(test.size() / args.batch_size)
+    steps_per_epoch = math.ceil(train.count() / args.batch_size)
+    val_steps = math.ceil(test.count() / args.batch_size)
 
     estimator = Estimator.from_keras(model_creator=model_creator,
                                      verbose=False,
                                      config=config,
                                      backend=args.backend,
                                      model_dir=args.model_dir)
-    estimator.fit(train.df,
+    estimator.fit(train,
                   batch_size=args.batch_size,
                   epochs=args.epochs,
                   feature_cols=['user', 'item'],
                   label_cols=['label'],
                   steps_per_epoch=steps_per_epoch,
-                  validation_data=test.df,
+                  validation_data=test,
                   validation_steps=val_steps)
 
-    predictions = estimator.predict(test.df,
+    predictions = estimator.predict(test,
                                     batch_size=args.batch_size,
                                     feature_cols=['user', 'item'],
                                     steps=val_steps)
