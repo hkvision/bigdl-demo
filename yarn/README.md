@@ -21,7 +21,7 @@
 Remarks:
 - Can change backend to tf2 or spark in the scripts.
 - Need to change the environment variables (BIGDL_HOME, SPARK_HOME) in the spark-submit scripts. 
-- Need to change `spark.pyspark.driver.python` for spark-submit yarn client mode.
+- Need to change `spark.pyspark.driver.python` to the Python interpreter on the client node for spark-submit yarn client mode. Can get this path using `which python` for the active conda environment.
 - Need to change or remove `spark.executorEnv.ARROW_LIBHDFS_DIR` according to your cluster settings.
 - Need to change `--model_dir` for the training script.
 
