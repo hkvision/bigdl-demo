@@ -1,0 +1,3 @@
+tensorflow==2.9.1
+bigdl-orca[ray]
+pyarrow==8.0.0
