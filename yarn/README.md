@@ -1,6 +1,6 @@
 ## Environment Preparation
 - Create a conda environment and install the packages in requirements.txt. (pyarrow is used for saving to hdfs for spark backend)
-- Pack the current conda environment: `conda pack -o environment.tar.gz` (Can uninstall bigdl-orca/bigdl-tf/bigdl-math/bigdl-dllib for the packaged conda env)
+- Pack the current conda environment: `conda pack -o environment.tar.gz`
 
 ## Download BigDL 2.0
 - Download BigDL all-in-one package: https://repo1.maven.org/maven2/com/intel/analytics/bigdl/bigdl-assembly-spark_2.4.6/2.0.0/bigdl-assembly-spark_2.4.6-2.0.0.zip
