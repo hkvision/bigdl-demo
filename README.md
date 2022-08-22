@@ -1,5 +1,5 @@
 # BigDL Demo
-Demo notebooks of using BigDL DLlib and Orca.
+Demo notebooks of using BigDL.
 
 For DLlib:
 - https://github.com/hkvision/bigdl-demo/blob/main/lstm_pollution_dllib.ipynb
